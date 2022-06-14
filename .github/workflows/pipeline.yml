@@ -21,6 +21,7 @@ jobs:
             - run: stack build
               name: Build
             - run: ${{ matrix.prepare }} ${{ matrix.binary }}
+              name: Rename the binary to ${{ matrix.binary }}
         strategy:
             matrix:
                 include:
