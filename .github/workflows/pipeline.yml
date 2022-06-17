@@ -34,3 +34,20 @@ jobs:
           - os: windows-latest
             prepare: mv "$(stack exec -- which haskell-github-pipeline.exe)"
             binary: haskell-github-pipeline-x86_64-pc-windows-msvc.exe
+
+  verify-next-version:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/head/main'
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Install Uplift
+        uses: gembaadvantage/uplift-action@v2
+        with:
+          version: latest
+          install-only: true
+          args: version
+      - name: Run Uplift Dry Run
+        run: uplift release --dry-run
