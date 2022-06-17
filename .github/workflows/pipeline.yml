@@ -1,36 +1,36 @@
 name: Pipeline
 on:
-    push:
-        branches:
-            - '*'
-    pull_request:
+  push:
+    branches:
+      - '*'
+  pull_request:
 jobs:
-    build:
-        runs-on: ${{ matrix.os }}
-        steps:
-            - uses: actions/checkout@v3
-              name: Checkout repository
-            - uses: haskell/actions/setup@v2
-              name: Setup Haskell
-              with:
-                ghc-version: '9.0.2'
-                enable-stack: true
-                stack-version: latest
-            - run: stack test
-              name: Run Tests
-            - run: stack build
-              name: Build
-            - run: ${{ matrix.prepare }} ${{ matrix.binary }}
-              name: Rename the binary to ${{ matrix.binary }}
-        strategy:
-            matrix:
-                include:
-                    - os: macos-latest
-                      prepare: mv "$(stack exec -- which haskell-github-pipeline-exe)"
-                      binary: haskell-github-pipeline-x86_64-apple-darwin
-                    - os: ubuntu-latest
-                      prepare: mv "$(stack exec -- which haskell-github-pipeline-exe)"
-                      binary: haskell-github-pipeline-x86_64-unknown-linux-gnu
-                    - os: windows-latest
-                      prepare: mv "$(stack exec -- which haskell-github-pipeline.exe)"
-                      binary: haskell-github-pipeline-x86_64-pc-windows-msvc.exe
+  build:
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v3
+        name: Checkout repository
+      - uses: haskell/actions/setup@v2
+        name: Setup Haskell
+        with:
+          ghc-version: '9.0.2'
+          enable-stack: true
+          stack-version: latest
+      - run: stack test
+        name: Run Tests
+      - run: stack build
+        name: Build
+      - run: ${{ matrix.prepare }} ${{ matrix.binary }}
+        name: Rename the binary to ${{ matrix.binary }}
+    strategy:
+      matrix:
+        include:
+          - os: macos-latest
+            prepare: mv "$(stack exec -- which haskell-github-pipeline-exe)"
+            binary: haskell-github-pipeline-x86_64-apple-darwin
+          - os: ubuntu-latest
+            prepare: mv "$(stack exec -- which haskell-github-pipeline-exe)"
+            binary: haskell-github-pipeline-x86_64-unknown-linux-gnu
+          - os: windows-latest
+            prepare: mv "$(stack exec -- which haskell-github-pipeline.exe)"
+            binary: haskell-github-pipeline-x86_64-pc-windows-msvc.exe
