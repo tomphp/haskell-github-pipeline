@@ -36,8 +36,8 @@ jobs:
             binary: haskell-github-pipeline-x86_64-pc-windows-msvc.exe
 
   verify-next-version:
-    runs-on: ubuntu-latest
     if: github.ref == 'refs/head/main'
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
@@ -51,3 +51,31 @@ jobs:
           args: version
       - name: Run Uplift Dry Run
         run: uplift release --dry-run
+
+  release:
+    if: github.ref == 'refs/head/main'
+    needs:
+      - build
+      - verify-next-version
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Install uplift
+        uses: gembaadvantage/uplift-action@v2
+        with:
+          version: latest
+          install-only: true
+          args: version
+      - name: Bump version
+        run: uplift release --fetch-all --no-push
+      - name: Configure Git with last committer
+        run: |
+          git config user.name "$(git log -1 --pretty=format:"%an")"
+          git config user.email "$(git log -1 --pretty=format:'%ae')"
+      - name: Add bumped files to commit
+        run: |
+          git add package.yaml
+          git commit --amend --no-edit

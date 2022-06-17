@@ -1,0 +1,6 @@
+bumps:
+  - file: ./package.yaml
+    regex:
+      - pattern: "version: *$VERSION"
+        semver: true
+        count: 1
