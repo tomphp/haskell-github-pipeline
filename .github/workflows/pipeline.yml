@@ -8,20 +8,20 @@ jobs:
   build:
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v3
-        name: Checkout repository
-      - uses: haskell/actions/setup@v2
-        name: Setup Haskell
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Setup Haskell
+        uses: haskell/actions/setup@v2
         with:
           ghc-version: '9.0.2'
           enable-stack: true
           stack-version: latest
-      - run: stack test
-        name: Run Tests
-      - run: stack build
-        name: Build
-      - run: ${{ matrix.prepare }} ${{ matrix.binary }}
-        name: Rename the binary to ${{ matrix.binary }}
+      - name: Run Tests
+        run: stack test
+      - name: Build
+        run: stack build
+      - name: Rename the binary to ${{ matrix.binary }}
+        run: ${{ matrix.prepare }} ${{ matrix.binary }}
     strategy:
       matrix:
         include:
