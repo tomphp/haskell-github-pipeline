@@ -28,8 +28,7 @@ runs:
       id: extract-version
       shell: bash
       run: |
-        cat "${{ steps.create-temp-file.outputs.output-file }}"
-        grep 'identified next tag *tag=' "${{ steps.create-temp-file.outputs.output-file }}"
+        set +o pipefail
         version=$(grep 'identified next tag *tag=' "${{ steps.create-temp-file.outputs.output-file }}" | sed 's/^.*identified next tag *tag=\(.*\) *$/\1/')
         echo "Next version: $version"
         echo "::set-output name=next-version::$version"
