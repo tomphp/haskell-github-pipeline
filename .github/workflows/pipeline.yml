@@ -36,7 +36,7 @@ jobs:
             binary: haskell-github-pipeline-x86_64-pc-windows-msvc.exe
 
   verify-next-version:
-    if: github.ref == 'refs/head/main'
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -53,7 +53,7 @@ jobs:
         run: uplift release --dry-run
 
   release:
-    if: github.ref == 'refs/head/main'
+    if: github.ref == 'refs/heads/main'
     needs:
       - build
       - verify-next-version
