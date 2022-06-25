@@ -1,0 +1,35 @@
+name: Get Next Version
+description: Get the next version from the commits
+outputs:
+  next-version:
+    description: The next version that will be release (empty if none detected)
+    value: ${{ steps.extract-version.outputs.next-version }}
+runs:
+  using: composite
+  steps:
+    - name: Install Uplift
+      uses: gembaadvantage/uplift-action@v2
+      with:
+        version: latest
+        install-only: true
+        args: version
+    - name: Create a Temporary File
+      id: create-temp-file
+      shell: bash
+      run: |
+        file="$(mktemp)"
+        echo "::set-output name=output-file::$file"
+    - name: Run Uplift Dry Run
+      shell: bash
+      run: |
+        uplift release --dry-run 2>"${{ steps.create-temp-file.outputs.output-file }}"
+        cat "${{ steps.create-temp-file.outputs.output-file }}"
+    - name: Extract Version
+      id: extract-version
+      shell: bash
+      run: |
+        cat "${{ steps.create-temp-file.outputs.output-file }}"
+        grep 'identified next tag *tag=' "${{ steps.create-temp-file.outputs.output-file }}"
+        version=$(grep 'identified next tag *tag=' "${{ steps.create-temp-file.outputs.output-file }}" | sed 's/^.*identified next tag *tag=\(.*\) *$/\1/')
+        echo "Next version: $version"
+        echo "::set-output name=next-version::$version"

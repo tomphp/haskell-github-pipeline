@@ -43,14 +43,12 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - name: Install Uplift
-        uses: gembaadvantage/uplift-action@v2
-        with:
-          version: latest
-          install-only: true
-          args: version
-      - name: Run Uplift Dry Run
-        run: uplift release --dry-run
+      - name: Get Next Version
+        id: get-next-version
+        uses: tomphp/haskell-github-pipeline/.github/actions/get-next-version@main
+      - name: Print Next Version
+        shell: bash
+        run: echo ${{ steps.get-next-version.outputs.next-version }}
 
   release:
     if: github.ref == 'refs/heads/main'
