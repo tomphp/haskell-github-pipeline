@@ -24,10 +24,12 @@ function execAndCapture(command, args) {
 
 async function checkUpliftIsInstalled() {
   try {
-    await exec('uplift', ['version']);
+    await exec.exec('uplift', ['version']);
   } catch (error) {
+    console.error(error.message);
     throw new Error(
         'uplift not installed\n' +
+        '\n' +
         'Try adding the following step before this one:\n' +
         '\n' +
         '- name: Install Uplift\n' +

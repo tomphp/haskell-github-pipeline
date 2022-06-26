@@ -56,10 +56,15 @@ describe('get-next-version', () => {
   });
 
   test('when uplift is not installed', async () => {
+    const tempBin = fs.mkdtempSync(path.join(os.tmpdir(), 'action-test-git-repo'));
+    await exec(`echo "exit 1" >"${tempBin}/uplift"`);
+    await exec(`chmod +x "${tempBin}/uplift"`);
+
     expect.assertions(1);
     try {
-      await exec(`alias uplift='exit 1;'; node ${__dirname}/index.js`);
+      await exec(`PATH="${tempBin}:$PATH" node '${__dirname}/index.js'`);
     } catch (error) {
+      console.log(error.message)
       expect(error.stdout).toContain('::error::Error: uplift not installed');
     }
   })
