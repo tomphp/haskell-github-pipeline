@@ -6,6 +6,7 @@ on:
   pull_request:
 jobs:
   build:
+    if: 'false'
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout repository
@@ -43,6 +44,12 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
+      # - name: Install Uplift
+      #   uses: gembaadvantage/uplift-action@v2
+      #   with:
+      #     version: latest
+      #     install-only: true
+      #     args: version
       - name: Get Next Version
         id: get-next-version
         uses: tomphp/haskell-github-pipeline/.github/actions/get-next-version@main
