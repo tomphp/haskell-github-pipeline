@@ -13,13 +13,7 @@ jobs:
           version: latest
           install-only: true
           args: version
-      - name: Configure git
-        run: |
-          git config --global user.email "you@example.com"
-          git config --global user.name "Your Name"
-      - name: Install Dependencies
-        working-directory: .github/actions/get-next-version
-        run: npm install
       - name: Run Tests
-        working-directory: .github/actions/get-next-version
-        run: npm test
+        uses: tomphp/haskell-github-pipeline/.github/actions/test-node-action@main
+        with:
+          action-name: get-next-version

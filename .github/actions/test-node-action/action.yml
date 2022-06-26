@@ -1,0 +1,28 @@
+name: Test Node Action
+description: Run the tests for a Javascript action
+inputs:
+  action-name:
+    description: The name of the action (must match the folder in .github/actions)
+    required: true
+runs:
+  using: composite
+  steps:
+    - name: Configure git
+      shell: bash
+      run: |
+        git config --global user.email "you@example.com"
+        git config --global user.name "Your Name"
+    - name: Setup Node
+      uses: actions/setup-node@v3
+      with:
+        node-version: 16
+        cache: 'npm'
+        cache-dependency-path: .github/actions/${{ inputs.action-name }}/package-lock.json    
+    - name: Install Dependencies
+      shell: bash
+      working-directory: .github/actions/${{ inputs.action-name }}
+      run: npm install
+    - name: Run Tests
+      shell: bash
+      working-directory: .github/actions/${{ inputs.action-name }}
+      run: npm test
