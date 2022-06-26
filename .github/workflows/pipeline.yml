@@ -6,7 +6,7 @@ on:
   pull_request:
 jobs:
   test-actions:
-    uses: ./.github/workflows/test_actions.yml
+    uses: ./.github/workflows/test-actions.yml
 
   build:
     if: 'false'
