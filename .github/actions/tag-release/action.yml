@@ -1,0 +1,8 @@
+name: Tag Release
+description: Tag the release with the next sematic version
+outputs:
+  expected-version:
+    description: The version that is expected to be tagged.
+runs:
+  using: node16
+  main: index.js

@@ -17,3 +17,19 @@ jobs:
         uses: tomphp/haskell-github-pipeline/.github/actions/test-node-action@main
         with:
           action-name: get-next-version
+
+  # test-tag-release:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout repository
+  #       uses: actions/checkout@v3
+  #     - name: Install Uplift
+  #       uses: gembaadvantage/uplift-action@v2
+  #       with:
+  #         version: latest
+  #         install-only: true
+  #         args: version
+  #     - name: Run Tests
+  #       uses: tomphp/haskell-github-pipeline/.github/actions/test-node-action@main
+  #       with:
+  #         action-name: tag-release

@@ -4,6 +4,7 @@ on:
     branches:
       - '*'
   pull_request:
+
 jobs:
   test-actions:
     uses: ./.github/workflows/test-actions.yml
@@ -66,7 +67,7 @@ jobs:
   release:
     if: github.ref == 'refs/heads/main' && needs.verify-next-version.outputs.next-version != ''
     needs:
-      - build
+      # - build
       - verify-next-version
     runs-on: ubuntu-latest
     steps:
@@ -80,13 +81,9 @@ jobs:
           version: latest
           install-only: true
           args: version
-      - name: Bump version
-        run: uplift release --fetch-all --no-push
-      - name: Configure Git with last committer
-        run: |
-          git config user.name "$(git log -1 --pretty=format:"%an")"
-          git config user.email "$(git log -1 --pretty=format:'%ae')"
-      - name: Add bumped files to commit
-        run: |
-          git add package.yaml
-          git commit --amend --no-edit
+      - name: Tag Release
+        uses: tomphp/haskell-github-pipeline/.github/actions/tag-release@main
+        with:
+          expected-version: ${{ needs.verify-next-version.outputs.next-version }}
+
+        
