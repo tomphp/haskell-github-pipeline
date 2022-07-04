@@ -84,6 +84,6 @@ jobs:
       - name: Tag Release
         uses: tomphp/haskell-github-pipeline/.github/actions/tag-release@main
         with:
-          expected-version: ${{ needs.verify-next-version.outputs.next-version }}
+          expected_version: ${{ needs.verify-next-version.outputs.next-version }}
 
         

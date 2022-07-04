@@ -60,7 +60,7 @@ async function tagNextVersion() {
 }
 
 try {
-  const expectedVersion = core.getInput('expected-version', { required: true });
+  const expectedVersion = core.getInput('expected_version', { required: true });
   tagNextVersion()
     .then((version) => {
       if (version != expectedVersion) {
