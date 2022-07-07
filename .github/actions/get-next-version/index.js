@@ -28,23 +28,23 @@ async function checkUpliftIsInstalled() {
   } catch (error) {
     console.error(error.message);
     throw new Error(
-        'uplift not installed\n' +
-        '\n' +
-        'Try adding the following step before this one:\n' +
-        '\n' +
-        '- name: Install Uplift\n' +
-        '  uses: gembaadvantage/uplift-action@v2\n' +
-        '  with:\n' +
-        '    version: latest\n' +
-        '    install-only: true\n' +
-        '    args: version\n'
-    )
-  }    
+      'uplift not installed\n'
+        + '\n'
+        + 'Try adding the following step before this one:\n'
+        + '\n'
+        + '- name: Install Uplift\n'
+        + '  uses: gembaadvantage/uplift-action@v2\n'
+        + '  with:\n'
+        + '    version: latest\n'
+        + '    install-only: true\n'
+        + '    args: version\n',
+    );
+  }
 }
 
 async function getNextVersion() {
   await checkUpliftIsInstalled();
-  
+
   const { stderr } = await execAndCapture('uplift', ['release', '--dry-run']);
   if (stderr.includes('no commits trigger a change in semantic version')) {
     return '';

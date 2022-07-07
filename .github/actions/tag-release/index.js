@@ -45,7 +45,7 @@ async function checkUpliftIsInstalled() {
 async function tagNextVersion() {
   await checkUpliftIsInstalled();
 
-  const { stdout, stderr } = await execAndCapture('uplift', ['release', /* '--fetch-all', */ '--no-push']);
+  const { stderr } = await execAndCapture('uplift', ['release', /* '--fetch-all', */ '--no-push']);
 
   if (stderr.includes('no commits trigger a change in semantic version')) {
     throw new Error('Nothing to release');
@@ -63,7 +63,7 @@ try {
   const expectedVersion = core.getInput('expected_version', { required: true });
   tagNextVersion()
     .then((version) => {
-      if (version != expectedVersion) {
+      if (version !== expectedVersion) {
         core.setFailed(`Expected version to be ${expectedVersion}, got ${version}`);
       }
     })

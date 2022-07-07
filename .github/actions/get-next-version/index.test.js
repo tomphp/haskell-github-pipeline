@@ -64,8 +64,8 @@ describe('get-next-version', () => {
     try {
       await exec(`PATH="${tempBin}:$PATH" node '${__dirname}/index.js'`);
     } catch (error) {
-      console.log(error.message)
+      console.log(error.message);
       expect(error.stdout).toContain('::error::Error: uplift not installed');
     }
-  })
+  });
 });

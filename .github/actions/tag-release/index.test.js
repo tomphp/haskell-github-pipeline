@@ -14,7 +14,7 @@ describe('tag-release', () => {
     try {
       await exec(
         `PATH="${tempBin}:$PATH" node '${__dirname}/index.js'`,
-        { env: { ...process.env, 'INPUT_EXPECTED_VERSION': 'v2.0.0' } },
+        { env: { ...process.env, INPUT_EXPECTED_VERSION: 'v2.0.0' } },
       );
     } catch (error) {
       expect(error.stdout).toContain('::error::Error: uplift not installed');
@@ -37,7 +37,7 @@ describe('tag-release', () => {
 
     await exec(
       `node ${__dirname}/index.js`,
-      { env: { ...process.env, 'INPUT_EXPECTED_VERSION': 'v1.1.0' } },
+      { env: { ...process.env, INPUT_EXPECTED_VERSION: 'v1.1.0' } },
     );
 
     const { stdout } = await exec('git tag --points-at HEAD');
@@ -87,7 +87,7 @@ describe('tag-release', () => {
     try {
       await exec(
         `node ${__dirname}/index.js`,
-        { env: { ...process.env, 'INPUT_EXPECTED_VERSION': 'v2.0.0' } },
+        { env: { ...process.env, INPUT_EXPECTED_VERSION: 'v2.0.0' } },
       );
     } catch (error) {
       expect(error.stdout).toContain('::error::Expected version to be v2.0.0, got v1.1.0');
