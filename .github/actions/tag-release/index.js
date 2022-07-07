@@ -47,9 +47,9 @@ async function tagNextVersion() {
 
   const { stdout, stderr } = await execAndCapture('uplift', ['release', /* '--fetch-all', */ '--no-push']);
 
-  //   if (stderr.includes('no commits trigger a change in semantic version')) {
-  //     return '';
-  //   }
+  if (stderr.includes('no commits trigger a change in semantic version')) {
+    throw new Error('Nothing to release');
+  }
 
   const found = stderr.match(/identified next tag *tag=(.*)/);
   if (found) {
