@@ -56,7 +56,7 @@ jobs:
           fetch-depth: 0
       - name: Get Next Version
         id: get-current-version
-        uses: tomphp/${{ inputs.app-name }}/.github/actions/get-current-version@main
+        uses: tomphp/haskell-github-pipeline/.github/actions/get-current-version@main
       - name: Install Uplift
         uses: gembaadvantage/uplift-action@v2
         with:
@@ -65,7 +65,7 @@ jobs:
           args: version
       - name: Get Next Version
         id: get-next-version
-        uses: tomphp/${{ inputs.app-name }}/.github/actions/get-next-version@main
+        uses: tomphp/haskell-github-pipeline/.github/actions/get-next-version@main
       - name: Print Current Version
         shell: bash
         run: echo ${{ steps.get-current-version.outputs.current-version }}
@@ -91,7 +91,7 @@ jobs:
           install-only: true
           args: version
       - name: Tag Release
-        uses: tomphp/${{ inputs.app-name }}/.github/actions/tag-release@main
+        uses: tomphp/haskell-github-pipeline/.github/actions/tag-release@main
         with:
           expected_version: ${{ needs.verify-next-version.outputs.next-version }}
       - name: Push Commit
