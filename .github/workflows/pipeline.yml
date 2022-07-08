@@ -72,7 +72,7 @@ jobs:
   tag-release:
     if: github.ref == 'refs/heads/main' && needs.verify-next-version.outputs.next-version != ''
     needs:
-      # - build
+      - build
       - verify-next-version
     runs-on: ubuntu-latest
     steps:
@@ -95,4 +95,28 @@ jobs:
       - name: Push Tag
         run: git push origin "${{ needs.verify-next-version.outputs.next-version }}"
 
-        
+  upload-release:
+    needs:
+      - tag-release
+      - verify-next-version
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        name: Checkout the repository
+        with:
+          lfs: true
+          fetch-depth: 0
+          ref: ${{ needs.verify-next-version.outputs.next-version }}
+      - name: Retrieve assets
+        uses: actions/download-artifact@v3
+      - name: Upload GitHub Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: ncipollo/release-action@v1.10.0
+        with:
+          allowUpdates: true
+          token: ${{ secrets.GITHUB_TOKEN }}
+          body: Release ${{ needs.verify-next-version.outputs.next-version }}
+          name: Release ${{ needs.verify-next-version.outputs.next-version }}
+          tag: ${{ needs.verify-next-version.outputs.next-version }}
+          artifacts: ./bins/*
