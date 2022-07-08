@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v0.2.1](https://github.com/tomphp/haskell-github-pipeline/releases/tag/v0.2.1) - 2022-07-08
+
+- [`3f9e0cd`](https://github.com/tomphp/haskell-github-pipeline/commit/3f9e0cd22411166ddba56b5bf299f752f0dcbe70) fix: ChangeLog weirdness
+
 ## [v0.2.0](https://github.com/tomphp/haskell-github-pipeline/releases/tag/v0.2.0) - 2022-07-08
 
 - [`f42f96e`](https://github.com/tomphp/haskell-github-pipeline/commit/f42f96e4abbed9c1106f2098c9ef7240ca5a3967) feat: Upload the release
