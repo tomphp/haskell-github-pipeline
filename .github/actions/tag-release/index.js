@@ -56,7 +56,7 @@ async function tagNextVersion() {
     return found[1];
   }
 
-//   throw new Error('Unexpected result');
+  throw new Error('Unexpected result');
 }
 
 try {
