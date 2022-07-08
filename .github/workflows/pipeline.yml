@@ -35,9 +35,9 @@ jobs:
           - os: ubuntu-latest
             prepare: mv "$(stack exec -- which haskell-github-pipeline-exe)"
             binary: haskell-github-pipeline-x86_64-unknown-linux-gnu
-          - os: windows-latest
-            prepare: mv "$(stack exec -- which haskell-github-pipeline-exe.exe)"
-            binary: haskell-github-pipeline-x86_64-pc-windows-msvc.exe
+          # - os: windows-latest
+          #   prepare: mv "$(stack exec -- which haskell-github-pipeline-exe.exe)"
+          #   binary: haskell-github-pipeline-x86_64-pc-windows-msvc.exe
 
   verify-next-version:
     if: github.ref == 'refs/heads/main'
