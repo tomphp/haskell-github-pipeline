@@ -73,7 +73,7 @@ jobs:
         shell: bash
         run: echo ${{ steps.get-next-version.outputs.next-version }}
 
-  tag-release:
+  create-release:
     if: github.ref == 'refs/heads/main' && needs.plan-next-version.outputs.next-version != ''
     needs:
       - build
@@ -91,7 +91,7 @@ jobs:
           install-only: true
           args: version
       - name: Tag Release
-        uses: tomphp/haskell-github-pipeline/.github/actions/tag-release@main
+        uses: tomphp/haskell-github-pipeline/.github/actions/create-release@main
         with:
           expected_version: ${{ needs.plan-next-version.outputs.next-version }}
       - name: Push Commit
@@ -101,7 +101,7 @@ jobs:
 
   upload-release:
     needs:
-      - tag-release
+      - create-release
       - plan-next-version
     runs-on: ubuntu-latest
     steps:
