@@ -1,4 +1,4 @@
-JS_ACTIONS = get-next-version tag-release
+JS_ACTIONS = get-current-version get-next-version tag-release
 
 SETUP_DEV_TARGETS = $(addprefix setup-dev-, $(JS_ACTIONS))
 LINT_DEV_TARGETS = $(addprefix lint-dev-, $(JS_ACTIONS))
