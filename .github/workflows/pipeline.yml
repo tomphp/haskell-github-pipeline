@@ -69,7 +69,7 @@ jobs:
         shell: bash
         run: echo ${{ steps.get-next-version.outputs.next-version }}
 
-  release:
+  tag-release:
     if: github.ref == 'refs/heads/main' && needs.verify-next-version.outputs.next-version != ''
     needs:
       # - build
