@@ -41,7 +41,7 @@ jobs:
             prepare: cp "$(stack exec -- which haskell-github-pipeline-exe)"
             binary: haskell-github-pipeline-x86_64-unknown-linux-gnu
           - os: windows-latest
-            prepare: Copy-Item $(stack exec which haskell-github-pipeline-exe.exe) -Destination
+            prepare: cp "$(stack exec -- where haskell-github-pipeline-exe.exe)"
             binary: haskell-github-pipeline-x86_64-pc-windows-msvc.exe
 
   verify-next-version:
