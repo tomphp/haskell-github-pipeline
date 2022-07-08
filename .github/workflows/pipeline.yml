@@ -39,10 +39,10 @@ jobs:
             binary: haskell-github-pipeline-x86_64-apple-darwin
           - os: ubuntu-latest
             prepare: cp "$(stack exec -- which haskell-github-pipeline-exe)"
-            binary: haskell-github-pipeline-x86_64-unknown-linux-gnu
+            binary: haskell-github-pipeline-x86_64-linux
           - os: windows-latest
             prepare: cp "$(stack exec -- where haskell-github-pipeline-exe.exe)"
-            binary: haskell-github-pipeline-x86_64-pc-windows-msvc.exe
+            binary: haskell-github-pipeline-x86_64-windows.exe
 
   verify-next-version:
     if: github.ref == 'refs/heads/main'
