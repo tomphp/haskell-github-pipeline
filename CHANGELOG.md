@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v0.2.2](https://github.com/tomphp/haskell-github-pipeline/releases/tag/v0.2.2) - 2022-07-08
+
+- [`56e0178`](https://github.com/tomphp/haskell-github-pipeline/commit/56e01782d773d98d2bd3b9d68b14e22403d9af3b) fix: Get current version
+- [`99896b2`](https://github.com/tomphp/haskell-github-pipeline/commit/99896b209b81dedb24453e505f7427ae8a48e735) ci: Add test job for get-current-version
+- [`c662c7a`](https://github.com/tomphp/haskell-github-pipeline/commit/c662c7ae63ed0bc274a16e57375f03b28b82c28f) ci: Add changelog to release
+- [`a9d0a88`](https://github.com/tomphp/haskell-github-pipeline/commit/a9d0a88dbb00cbcf0fde6d96c4578c784cc1cb21) ci: Add get-current-version action
+- [`b774c4b`](https://github.com/tomphp/haskell-github-pipeline/commit/b774c4b91303efaf9ed882af5e4ce6a56fbf7d7b) ci: Renenable job
+
 ## [v0.2.1](https://github.com/tomphp/haskell-github-pipeline/releases/tag/v0.2.1) - 2022-07-08
 
 - [`3f9e0cd`](https://github.com/tomphp/haskell-github-pipeline/commit/3f9e0cd22411166ddba56b5bf299f752f0dcbe70) fix: ChangeLog weirdness
