@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v0.4.0](https://github.com/tomphp/haskell-github-pipeline/releases/tag/v0.4.0) - 2022-07-08
+
+- [`485e0e7`](https://github.com/tomphp/haskell-github-pipeline/commit/485e0e760394471f353ff64f8054c6fa566ee6cd) fix: Action repo name
+- [`8dfc1d8`](https://github.com/tomphp/haskell-github-pipeline/commit/8dfc1d8b0f14b0bfa9728897f439586f24d969ba) feat: Extract build-and-release workflow
+
 ## [v0.3.1](https://github.com/tomphp/haskell-github-pipeline/releases/tag/v0.3.1) - 2022-07-08
 
 - [`9d39501`](https://github.com/tomphp/haskell-github-pipeline/commit/9d395019f33a43913c500bc94e6925e6e7cc9390) fix: Update executable names
