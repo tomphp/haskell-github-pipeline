@@ -26,6 +26,11 @@ jobs:
         run: stack build
       - name: Rename the binary to ${{ matrix.binary }}
         run: ${{ matrix.prepare }} ${{ matrix.binary }}
+      - name: Store binary
+        uses: actions/upload-artifact@v3
+        with:
+          name: bins
+          path: ${{ matrix.binary }}
     strategy:
       matrix:
         include:
