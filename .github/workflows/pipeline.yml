@@ -70,7 +70,7 @@ jobs:
         uses: tomphp/haskell-github-pipeline/.github/actions/get-next-version@main
       - name: Print Current Version
         shell: bash
-        run: echo ${{ steps.get-next-version.outputs.current-version }}
+        run: echo ${{ steps.get-current-version.outputs.current-version }}
       - name: Print Next Version
         shell: bash
         run: echo ${{ steps.get-next-version.outputs.next-version }}
