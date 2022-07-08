@@ -43,7 +43,7 @@ jobs:
             prepare: cp "$(stack exec -- where ${{ inputs.app-name }}-exe.exe)"
             binary: ${{ inputs.app-name }}-x86_64-windows.exe
 
-  verify-next-version:
+  plan-next-version:
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     outputs:
@@ -74,10 +74,10 @@ jobs:
         run: echo ${{ steps.get-next-version.outputs.next-version }}
 
   tag-release:
-    if: github.ref == 'refs/heads/main' && needs.verify-next-version.outputs.next-version != ''
+    if: github.ref == 'refs/heads/main' && needs.plan-next-version.outputs.next-version != ''
     needs:
       - build
-      - verify-next-version
+      - plan-next-version
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -93,16 +93,16 @@ jobs:
       - name: Tag Release
         uses: tomphp/haskell-github-pipeline/.github/actions/tag-release@main
         with:
-          expected_version: ${{ needs.verify-next-version.outputs.next-version }}
+          expected_version: ${{ needs.plan-next-version.outputs.next-version }}
       - name: Push Commit
         run: git push origin "${GITHUB_REF##*/}"
       - name: Push Tag
-        run: git push origin "${{ needs.verify-next-version.outputs.next-version }}"
+        run: git push origin "${{ needs.plan-next-version.outputs.next-version }}"
 
   upload-release:
     needs:
       - tag-release
-      - verify-next-version
+      - plan-next-version
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -110,14 +110,14 @@ jobs:
         with:
           lfs: true
           fetch-depth: 0
-          ref: ${{ needs.verify-next-version.outputs.next-version }}
+          ref: ${{ needs.plan-next-version.outputs.next-version }}
       - name: Retrieve assets
         uses: actions/download-artifact@v3
       - uses: dlavrenuek/conventional-changelog-action@v1.2.1
         id: changelog
         with:
-          from: ${{ needs.verify-next-version.outputs.current-version }}
-          to: ${{ needs.verify-next-version.outputs.next-version }}
+          from: ${{ needs.plan-next-version.outputs.current-version }}
+          to: ${{ needs.plan-next-version.outputs.next-version }}
       - name: Upload GitHub Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -126,6 +126,6 @@ jobs:
           allowUpdates: true
           token: ${{ secrets.GITHUB_TOKEN }}
           body: ${{ steps.changelog.outputs.body }}
-          name: Release ${{ needs.verify-next-version.outputs.next-version }}
-          tag: ${{ needs.verify-next-version.outputs.next-version }}
+          name: Release ${{ needs.plan-next-version.outputs.next-version }}
+          tag: ${{ needs.plan-next-version.outputs.next-version }}
           artifacts: ./bins/*
