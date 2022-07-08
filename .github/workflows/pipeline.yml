@@ -90,5 +90,9 @@ jobs:
         uses: tomphp/haskell-github-pipeline/.github/actions/tag-release@main
         with:
           expected_version: ${{ needs.verify-next-version.outputs.next-version }}
+      - name: Push Commit
+        run: git push origin "${GITHUB_REF##*/}"
+      - name: Push Tag
+        run: git push origin "${{ needs.verify-next-version.outputs.next-version }}"
 
         
