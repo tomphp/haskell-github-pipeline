@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v0.3.1](https://github.com/tomphp/haskell-github-pipeline/releases/tag/v0.3.1) - 2022-07-08
+
+- [`9d39501`](https://github.com/tomphp/haskell-github-pipeline/commit/9d395019f33a43913c500bc94e6925e6e7cc9390) fix: Update executable names
+
 ## [v0.3.0](https://github.com/tomphp/haskell-github-pipeline/releases/tag/v0.3.0) - 2022-07-08
 
 - [`7b66271`](https://github.com/tomphp/haskell-github-pipeline/commit/7b6627195fc5995429e72ffeed9d26887b9c41d0) fix: Try to fix windows path
